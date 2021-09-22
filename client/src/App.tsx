@@ -6,26 +6,30 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 
 function App() {
-  const [loading, isLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useState(() => {
-    isLoading(false);
+    setIsLoading(false);
   });
 
   return (
     <Router>
       <TopBar />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/register">
-          <Register />
-        </Route>
-      </Switch>
+      {isLoading ? (
+        <div>loading</div>
+      ) : (
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/register">
+            <Register />
+          </Route>
+        </Switch>
+      )}
     </Router>
   );
 }
