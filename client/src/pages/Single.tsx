@@ -1,18 +1,20 @@
 import React from "react";
+import { useLocation } from "react-router";
 import { CommunitySideBar } from "../components/CommunitySideBar";
-import { Posts } from "../components/Posts";
+import { SinglePost } from "../components/SinglePost";
 import { UserSideBar } from "../components/UserSideBar";
+import { IPost } from "../types/IPost";
 
-interface HomeProps {}
+interface SingleProps {}
 
-export const Home: React.FC<HomeProps> = () => {
+export const Single: React.FC<SingleProps> = () => {
   return (
-    <div className="flex flex-grow">
+    <div className="flex">
       <div className="hidden sm:flex flex-shrink bg-lightGray sm:w-64">
         <UserSideBar />
       </div>
       <div className="flex flex-grow bg-gray pl-4 pr-4 sm:w-80 min-h-screen">
-        <Posts />
+        {/* <SinglePost /> */}
       </div>
       <div className="hidden sm:flex flex-shrink bg-lightGray sm:w-64">
         <CommunitySideBar />

@@ -1,5 +1,6 @@
 import React from "react";
 import { IPost } from "../types/IPost";
+import { Post } from "./Post";
 import { SinglePost } from "./SinglePost";
 
 interface PostsProps {}
@@ -59,7 +60,7 @@ export const Posts: React.FC<PostsProps> = () => {
   return (
     <div className="flex flex-col">
       {testPosts.map((e, i) => (
-        <SinglePost key={i} post={e} />
+        <Post key={i} post={e} />
       ))}
     </div>
   );
