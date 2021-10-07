@@ -14,7 +14,7 @@ export const Single: React.FC<SingleProps> = () => {
         <UserSideBar />
       </div>
       <div className="flex flex-grow bg-gray pl-4 pr-4 sm:w-80 min-h-screen">
-        <SinglePost />
+        {/* <SinglePost /> */}
       </div>
       <div className="hidden sm:flex flex-shrink bg-lightGray sm:w-64">
         <CommunitySideBar />

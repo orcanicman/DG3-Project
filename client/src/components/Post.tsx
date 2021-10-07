@@ -10,6 +10,14 @@ interface PostProps {
 
 export const Post: React.FC<PostProps> = ({ post }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [likes, setLikes] = useState(post.likes);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const toggleLike = () => {
+    setLikes(likes + (isLiked ? 1 : 0));
+    setIsLiked(!isLiked);
+  };
+
   return (
     <Link to="/post/testin">
       <div className="flex flex-col mt-4 mb-4 w-full bg-gray p-4 rounded">
@@ -25,7 +33,13 @@ export const Post: React.FC<PostProps> = ({ post }) => {
           <div className="mb-2">{post.title}</div>
           <div className="mb-2">{post.content}</div>
           <div className="flex">
-            <div>likes {post.likes}</div>
+            <button
+              onClick={() => {
+                toggleLike();
+              }}
+            >
+              <div className="bg-red cursor-pointer">likes {post.likes}</div>
+            </button>
             <div className="ml-2">
               <button
                 onClick={() => {
