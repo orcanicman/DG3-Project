@@ -19,45 +19,45 @@ export const Post: React.FC<PostProps> = ({ post }) => {
   };
 
   return (
-    <Link to="/post/testin">
-      <div className="flex flex-col mt-4 mb-4 w-full bg-gray p-4 rounded">
-        <div className="flex mb-2">
-          <img src={defaultImg} alt="" className="w-12 h-12 rounded-full" />
-          <div className="ml-2">
-            <div className="text-sm font-light">@{post.userTag}</div>
-            <div className="">{post.userName}</div>
-          </div>
+    // <Link to="/post/testin">
+    <div className="flex flex-col mt-4 mb-4 w-full bg-gray p-4 rounded">
+      <div className="flex mb-2">
+        <img src={defaultImg} alt="" className="w-12 h-12 rounded-full" />
+        <div className="ml-2">
+          <div className="text-sm font-light">@{post.userTag}</div>
+          <div className="">{post.userName}</div>
         </div>
-        <div className="flex flex-col ml-2 mb-2">
-          <div className="ml-14"></div>
-          <div className="mb-2">{post.title}</div>
-          <div className="mb-2">{post.content}</div>
-          <div className="flex">
+      </div>
+      <div className="flex flex-col ml-2 mb-2">
+        <div className="ml-14"></div>
+        <div className="mb-2">{post.title}</div>
+        <div className="mb-2">{post.content}</div>
+        <div className="flex">
+          <button
+            onClick={() => {
+              toggleLike();
+            }}
+          >
+            <div className="  cursor-pointer">likes {post.likes}</div>
+          </button>
+          <div className="ml-2">
             <button
               onClick={() => {
-                toggleLike();
+                setIsCollapsed(!isCollapsed);
               }}
             >
-              <div className="bg-red cursor-pointer">likes {post.likes}</div>
+              comments {post.comments?.length}
             </button>
-            <div className="ml-2">
-              <button
-                onClick={() => {
-                  setIsCollapsed(!isCollapsed);
-                }}
-              >
-                comments {post.comments?.length}
-              </button>
-            </div>
           </div>
         </div>
-        {isCollapsed &&
-          post.comments?.map((comment, i) => (
-            <div className="pl-14">
-              <Comment key={i} comment={comment} />
-            </div>
-          ))}
       </div>
-    </Link>
+      {isCollapsed &&
+        post.comments?.map((comment, i) => (
+          <div className="pl-14">
+            <Comment key={i} comment={comment} />
+          </div>
+        ))}
+    </div>
+    // </Link>
   );
 };

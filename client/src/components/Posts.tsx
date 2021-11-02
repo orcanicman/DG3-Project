@@ -20,13 +20,13 @@ const testPosts: IPost[] = [
         likes: 2,
         comments: [
           {
-            userName: "conre",
+            userName: "corne",
             userTag: "coyuu",
             content: "xDDDDD",
             likes: 2,
             comments: [
               {
-                userName: "conre",
+                userName: "corne",
                 userTag: "coyuu",
                 content: "xDDDDD",
                 likes: 2,

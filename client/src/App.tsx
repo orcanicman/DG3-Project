@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Single } from "./pages/Single";
+import { Userpage } from "./components/Userpage";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +33,9 @@ function App() {
             </Route>
             <Route exact path="/post/:postId">
               <Single />
+            </Route>
+            <Route exact path="/user/:tag">
+              <Userpage />
             </Route>
           </Switch>
         )}
