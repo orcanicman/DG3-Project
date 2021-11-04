@@ -1,0 +1,36 @@
+/auth/refresh (POST)
+Checks refresh token and gives new accesstoken & refresh token
+
+/auth/login (POST)
+Logges user in and gives accessToken and refresh token
+
+/user (GET) 
+gets all users
+
+/user (POST)
+creates new user
+
+/user/:tag (GET)
+gets user based on tag param
+
+/user/:id (PUT)
+updates user based on id param
+
+/user/:id (DELETE)
+deletes user based on id param
+
+
+/post (GET) 
+gets all posts
+
+/post (POST)
+creates new post
+
+/post/:id (GET)
+gets post based on id param
+
+/post/:id (PUT)
+updates post based on id param
+
+/post/:id (DELETE)
+deletes post based on id param

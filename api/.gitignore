@@ -1,5 +1,0 @@
-# dependencies
-/node_modules
-src/images/*
-!src/images/default.jpg
-!src/images/sideBarPic.jpg
