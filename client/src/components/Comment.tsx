@@ -37,7 +37,7 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
       {isCollapsed && (
         <div className="ml-12 border-b">
           {comment.comments?.map((comment, i) => (
-            <Comment key={i} comment={comment} />
+            <Comment key={comment + String(i)} comment={comment} />
           ))}
         </div>
       )}

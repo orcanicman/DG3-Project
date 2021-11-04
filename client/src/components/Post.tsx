@@ -54,7 +54,7 @@ export const Post: React.FC<PostProps> = ({ post }) => {
       {isCollapsed &&
         post.comments?.map((comment, i) => (
           <div className="pl-14">
-            <Comment key={i} comment={comment} />
+            <Comment key={comment + String(i)} comment={comment} />
           </div>
         ))}
     </div>

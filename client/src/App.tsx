@@ -1,6 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { TopBar } from "./components/TopBar";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
@@ -13,12 +18,12 @@ import jwtDecode, { JwtPayload } from "jwt-decode";
 import { ActionType } from "./context/Actions";
 
 export const apiAxios = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "http://localhost:5000/",
   withCredentials: true,
 });
 
 export const JWTAxios = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "http://localhost:5000/",
   headers: { authorization: `Bearer ${getAccessToken()}` },
   withCredentials: true,
 });
@@ -75,19 +80,19 @@ function App() {
         ) : (
           <Switch>
             <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/register">
-              <Register />
+              {user ? <Home /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/post/:postId">
               <Single />
             </Route>
             <Route exact path="/user/:tag">
               <Userpage />
+            </Route>
+            <Route exact path="/login">
+              {user ? <Redirect to="/" /> : <Login />}
+            </Route>
+            <Route exact path="/register">
+              {user ? <Redirect to="/" /> : <Register />}
             </Route>
           </Switch>
         )}
