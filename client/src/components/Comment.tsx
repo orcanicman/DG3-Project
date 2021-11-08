@@ -14,8 +14,8 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
       <div className="flex mb-2">
         <img src={defaultImg} alt="" className="w-12 h-12 rounded-full" />
         <div className="ml-2">
-          <div className="text-sm font-light">@{comment.userTag}</div>
-          <div className="">{comment.userName}</div>
+          <div className="text-sm font-light">@{comment.author.tag}</div>
+          <div className="">{comment.author.name}</div>
         </div>
       </div>
       <div className="flex flex-col ml-2 mb-4">
@@ -34,13 +34,15 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
           </div>
         </div>
       </div>
-      {isCollapsed && (
-        <div className="ml-12 border-b">
-          {comment.comments?.map((comment, i) => (
-            <Comment key={comment + String(i)} comment={comment} />
-          ))}
-        </div>
-      )}
+      {isCollapsed &&
+        comment.comments?.map((comment, i) => (
+          <div
+            className="pl-12 border-b bg-gray hover:bg-lightGray"
+            key={"CommentToComment" + comment.author.tag + String(i)}
+          >
+            <Comment comment={comment} />
+          </div>
+        ))}
     </div>
   );
 };

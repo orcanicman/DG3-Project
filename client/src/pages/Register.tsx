@@ -22,7 +22,7 @@ export const Register: React.FC<RegisterProps> = () => {
         password,
         name: displayName,
       });
-      res.data && window.location.replace("/login");
+      !error && res.data && window.location.replace("/login");
     } catch (error) {
       setError(true);
     }
