@@ -4,7 +4,7 @@ import profilePicture from "../Images/default.jpg";
 
 interface ProfileProps {}
 
-export const Profile: React.FC<ProfileProps> = ({}) => {
+export const Profile: React.FC<ProfileProps> = () => {
   return (
     <div className="flex flex-col w-full bg-gray rounded">
       <div className="relative w-full">

@@ -1,10 +1,14 @@
 import { IComment } from "./IComment";
+import { IUser } from "./IUser";
 
 export interface IPost {
-    userName: string;
-    userTag: string;
-    title: string;
-    content: string;
-    likes: number;
-    comments?: IComment[]
+  title: string;
+  content: string;
+  author: IUser;
+  _count: {
+    usersLiked: number;
+  };
+  comments?: IComment[];
+  id?: string;
+  createdAt: string;
 }

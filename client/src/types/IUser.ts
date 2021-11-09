@@ -3,6 +3,7 @@ export interface IUser {
   name: string;
   tag: string;
   password?: string;
+  createdAt?: string;
   profile?: IProfile;
 }
 

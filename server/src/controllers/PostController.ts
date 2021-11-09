@@ -7,6 +7,14 @@ class PostController {
     try {
       const post = await ownPrisma.post.findUnique({
         where: { id: request.params.id },
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          comments: true,
+          author: { select: { id: true, name: true, tag: true } },
+          _count: { select: { usersLiked: true } },
+        },
       });
       !post && response.status(404).json({ message: "Could not find post" });
       response.status(200).json(post);
@@ -24,6 +32,7 @@ class PostController {
           title: true,
           content: true,
           comments: true,
+          author: { select: { id: true, name: true, tag: true } },
           _count: { select: { usersLiked: true } },
         },
       });
@@ -45,7 +54,7 @@ class PostController {
         const post = await ownPrisma.post.create({
           data: {
             title: payload.title,
-            content: payload.title,
+            content: payload.content,
             authorId: token.userId,
           },
         });

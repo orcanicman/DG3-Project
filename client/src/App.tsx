@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { TopBar } from "./components/TopBar";
 import {
   BrowserRouter as Router,
   Switch,
@@ -73,8 +72,7 @@ function App() {
 
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
-        <TopBar />
+      <div className="flex flex-col min-h-screen overflow-hidden">
         {isLoading ? (
           <div>loading</div>
         ) : (

@@ -1,7 +1,9 @@
+import { IUser } from "./IUser";
+
 export interface IComment {
-    userName: string;
-    userTag: string;
-    content: string;
-    likes: number;
-    comments?: IComment[];
+  content: string;
+  author: IUser;
+  likes: number;
+  comments?: IComment[];
+  createdAt: string;
 }

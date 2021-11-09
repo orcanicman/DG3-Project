@@ -11,7 +11,7 @@ export const Login: React.FC<LoginProps> = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { dispatch, state } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -33,7 +33,10 @@ export const Login: React.FC<LoginProps> = () => {
   return (
     <div className="flex">
       <div className="flex-shrink sm:w-64"></div>
-      <div className="flex-grow flex flex-col p-4 sm:p-0 sm:items-center">
+      <div
+        className="flex-grow flex flex-col p-4 sm:p-0 sm:items-center"
+        style={{ marginTop: "15%" }}
+      >
         <form className="flex flex-col mt-8 sm:w-80" onSubmit={handleSubmit}>
           <h1 className="text-4xl font-bold mb-8 self-start">Login</h1>
           <label className="font-bold self-start pb-1">Username</label>
