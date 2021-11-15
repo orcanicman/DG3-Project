@@ -13,6 +13,7 @@ class PostController {
           content: true,
           comments: true,
           author: { select: { id: true, name: true, tag: true } },
+          usersLiked: { select: { id: true, name: true, tag: true } },
           _count: { select: { usersLiked: true } },
         },
       });
@@ -33,6 +34,7 @@ class PostController {
           content: true,
           comments: true,
           author: { select: { id: true, name: true, tag: true } },
+          usersLiked: { select: { id: true, name: true, tag: true } },
           _count: { select: { usersLiked: true } },
         },
       });
@@ -65,6 +67,52 @@ class PostController {
       }
     } else {
       response.status(401).json({ message: "not authenticated" });
+    }
+  }
+
+  static async toggleLike(request: Request, response: Response) {
+    try {
+      const userId = response.locals.jwt.userId;
+      const post = await ownPrisma.post.findUnique({
+        where: { id: request.params.id },
+        select: { usersLiked: true },
+      });
+      if (post?.usersLiked.find((e) => e.id === userId)) {
+        const updatedPost = await ownPrisma.post.update({
+          where: { id: request.params.id },
+          select: {
+            id: true,
+            title: true,
+            content: true,
+            comments: true,
+            author: { select: { id: true, name: true, tag: true } },
+            usersLiked: { select: { id: true, name: true, tag: true } },
+            _count: { select: { usersLiked: true } },
+          },
+          data: { usersLiked: { disconnect: { id: userId } } },
+        });
+        response
+          .status(200)
+          .json({ message: "you unliked this post", updatedPost });
+      } else {
+        const updatedPost = await ownPrisma.post.update({
+          where: { id: request.params.id },
+          select: {
+            id: true,
+            title: true,
+            content: true,
+            comments: true,
+            author: { select: { id: true, name: true, tag: true } },
+            _count: { select: { usersLiked: true } },
+          },
+          data: { usersLiked: { connect: { id: userId } } },
+        });
+        response
+          .status(200)
+          .json({ message: "you liked this post", updatedPost });
+      }
+    } catch (error) {
+      response.status(500).json({ message: "could not unlike post" });
     }
   }
 

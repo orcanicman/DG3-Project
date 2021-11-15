@@ -35,7 +35,6 @@ JWTAxios.interceptors.request.use(
       if (Date.now() >= exp! * 1000) {
         const response = await apiAxios.post("/auth/refresh");
         setAccessToken(response.data.accessToken);
-        console.log(`Bearer ${getAccessToken()}`);
       }
       config.headers["authorization"] = `Bearer ${getAccessToken()}`;
     } catch (error) {

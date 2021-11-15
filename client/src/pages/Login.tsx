@@ -31,13 +31,10 @@ export const Login: React.FC<LoginProps> = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <div className="flex-shrink sm:w-64"></div>
-      <div
-        className="flex-grow flex flex-col p-4 sm:p-0 sm:items-center"
-        style={{ marginTop: "15%" }}
-      >
-        <form className="flex flex-col mt-8 sm:w-80" onSubmit={handleSubmit}>
+      <div className="flex-grow flex flex-col p-4 sm:p-0 sm:items-center my-auto">
+        <form className="flex flex-col sm:w-80" onSubmit={handleSubmit}>
           <h1 className="text-4xl font-bold mb-8 self-start">Login</h1>
           <label className="font-bold self-start pb-1">Username</label>
           <input
