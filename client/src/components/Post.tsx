@@ -5,6 +5,7 @@ import { Comment } from "./Comment";
 import { Link } from "react-router-dom";
 import { JWTAxios } from "../App";
 import { UserContext } from "../context/UserContext";
+import { WriteComment } from "./WriteComment";
 
 interface PostProps {
   post: IPost;
@@ -64,7 +65,10 @@ export const Post: React.FC<PostProps> = ({ post }) => {
             }}
           >
             <div
-              className={isLiked ? "text-red" : "text-white" + "cursor-pointer"}
+              className={
+                // eslint-disable-next-line
+                isLiked ? "text-red" : "text-white" + "cursor-pointer"
+              }
             >
               likes {likes}
             </div>
@@ -80,13 +84,14 @@ export const Post: React.FC<PostProps> = ({ post }) => {
           </div>
         </div>
       </div>
+      {isCollapsed && post.id && <WriteComment postId={post.id} />}
       {isCollapsed &&
         post.comments?.map((comment, i) => (
           <div
-            className="pl-14 border-b bg-gray hover:bg-lightGray"
+            className="border-b hover:bg-lightGray"
             key={"Comment" + comment.author.tag + String(i)}
           >
-            <Comment comment={comment} />
+            <Comment comment={comment} post={post} />
           </div>
         ))}
     </div>

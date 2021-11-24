@@ -58,6 +58,7 @@ function App() {
       setAccessToken(response.data.accessToken);
       setIsLoading(false);
     } catch (error) {
+      console.log(error);
       dispatch({ type: ActionType.Logout });
       setIsLoading(false);
     }
@@ -80,10 +81,10 @@ function App() {
               {user ? <Home /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/post/:postId">
-              <Single />
+              {user ? <Single /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/user/:tag">
-              <Userpage />
+              {user ? <Userpage /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/login">
               {user ? <Redirect to="/" /> : <Login />}

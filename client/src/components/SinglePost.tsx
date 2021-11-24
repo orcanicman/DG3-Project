@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { IPost } from "../types/IPost";
 import defaultImg from "../Images/default.jpg";
 import { Comment } from "./Comment";
@@ -11,12 +11,28 @@ interface SinglePostProps {
 }
 
 export const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
   const [likes, setLikes] = useState(post._count.usersLiked);
   const [isLiked, setIsLiked] = useState(false);
+  const [highlightedComment, setHighLightedComment] = useState("");
+
+  const highLightedCommentPath = window.location.hash.split("#")[1];
 
   const { state } = useContext(UserContext);
   const user = state.user;
+
+  const executeScroll = () => {
+    ref?.scrollIntoView();
+  };
+
+  const onRefChange = useCallback(
+    (node) => {
+      setRef(node);
+      executeScroll();
+    },
+    // eslint-disable-next-line
+    [ref]
+  );
 
   const toggleLike = async () => {
     try {
@@ -37,7 +53,14 @@ export const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
     } else {
       setIsLiked(false);
     }
-  }, [user, post]);
+    if (highLightedCommentPath) {
+      post?.comments?.find((e) => e.id === highLightedCommentPath)?.id &&
+        setHighLightedComment(
+          post?.comments?.find((e) => e.id === highLightedCommentPath)?.id!
+        );
+      //this is actually fucking garbage
+    }
+  }, [user, post, highLightedCommentPath]);
 
   return (
     <div className="flex flex-col w-full">
@@ -65,6 +88,7 @@ export const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
             >
               <div
                 className={
+                  // eslint-disable-next-line
                   isLiked ? "text-red" : "text-white" + "cursor-pointer"
                 }
               >
@@ -72,25 +96,23 @@ export const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
               </div>
             </button>
             <div className="ml-2">
-              <button
-                onClick={() => {
-                  setIsCollapsed(!isCollapsed);
-                }}
-              >
-                comments {post.comments?.length}
-              </button>
+              <div>comments {post.comments?.length}</div>
             </div>
           </div>
         </div>
-        {isCollapsed &&
-          post.comments?.map((comment, i) => (
-            <div
-              className="pl-14 border-b bg-gray hover:bg-lightGray"
-              key={"Comment" + comment.author.tag + String(i)}
-            >
-              <Comment comment={comment} />
-            </div>
-          ))}
+        {post.comments?.map((comment, i) => (
+          <div
+            className="border-b"
+            key={"Comment" + comment.author.tag + String(i)}
+            style={{
+              backgroundColor:
+                comment.id === highlightedComment ? "lightcoral" : "inherit",
+            }}
+            ref={comment.id === highlightedComment ? onRefChange : undefined}
+          >
+            <Comment comment={comment} post={post} />
+          </div>
+        ))}
       </div>
     </div>
   );
