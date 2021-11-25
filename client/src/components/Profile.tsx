@@ -38,7 +38,7 @@ export const Profile: React.FC<ProfileProps> = () => {
           <button className="bg-gray hover:bg-lightGray text-black font-bold px-2 py-2  border border-black rounded w-1/2 ">
             Likes
           </button>
-          <button className="bg-gray hover:bg-lightgray text-black font-bold px-2 py-2  border border-black rounded w-1/2">
+          <button className="bg-gray hover:bg-lightGray text-black font-bold px-2 py-2  border border-black rounded w-1/2">
             Posts
           </button>
         </div>
