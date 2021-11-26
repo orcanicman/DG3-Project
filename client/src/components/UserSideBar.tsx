@@ -23,10 +23,10 @@ export const UserSideBar: React.FC<UserSideBarProps> = () => {
   return (
     <div className="flex flex-col w-full items-center">
       <img src={defaultImg} alt="" className="w-3/4 rounded-full p-4" />
-      <Link to={`user/${user?.tag}`} className="text-lg font-bold">
+      <Link to={`/user/${user?.tag}`} className="text-lg font-bold">
         {user?.name}
       </Link>
-      <Link to={`user/${user?.tag}`} className="text-sm font-light">
+      <Link to={`/user/${user?.tag}`} className="text-sm font-light">
         @{user?.tag}
       </Link>
       <div className=" w-3/4 p-2">{user?.profile?.bio}</div>
@@ -37,7 +37,7 @@ export const UserSideBar: React.FC<UserSideBarProps> = () => {
         Settings
       </div>
       <Link
-        to={`user/${user?.tag}`}
+        to={`/user/${user?.tag}`}
         className="text-lg hover:bg-gray w-3/4 p-2 cursor-pointer"
       >
         Profile
