@@ -5,6 +5,7 @@ export interface IPost {
   title: string;
   content: string;
   author: IUser;
+  usersLiked: IUser[];
   _count: {
     usersLiked: number;
   };
