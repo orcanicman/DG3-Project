@@ -55,13 +55,21 @@ export const Profile: React.FC<ProfileProps> = () => {
         </div>
         <div className="flex row">
           <button
-            className="bg-gray hover:bg-lightGray text-black font-bold px-2 py-2  border border-black rounded w-1/2 "
+            className={
+              isPost
+                ? "bg-black text-gray font-bold px-2 py-2 border border-black rounded w-1/2"
+                : "bg-gray hover:bg-lightGray text-black font-bold px-2 py-2 border border-black rounded w-1/2"
+            }
             onClick={() => setIsPost(true)}
           >
             Posts
           </button>
           <button
-            className="bg-gray hover:bg-lightGray text-black font-bold px-2 py-2  border border-black rounded w-1/2"
+            className={
+              isPost
+                ? "bg-gray hover:bg-lightGray text-black font-bold px-2 py-2 border border-black rounded w-1/2"
+                : "bg-black text-gray font-bold px-2 py-2 border border-black rounded w-1/2"
+            }
             onClick={() => setIsPost(false)}
           >
             Comments
@@ -73,7 +81,13 @@ export const Profile: React.FC<ProfileProps> = () => {
           <div className="flex flex-col w-full">
             {isPost
               ? post?.map((e, i) => <Post key={i} post={e} />)
-              : comments?.map((e, i) => <Comment key={i} comment={e} />)}
+              : comments?.map((e, i) => (
+                  <div className="px-4 border-b hover:bg-lightGray">
+                    <Link to={"/post/" + e.post?.id + "#" + e.id}>
+                      <Comment key={i} comment={e} />
+                    </Link>
+                  </div>
+                ))}
           </div>
         </div>
       </div>
