@@ -33,9 +33,7 @@ export const UserSideBar: React.FC<UserSideBarProps> = () => {
       <Link to={`/`} className="text-lg hover:bg-gray w-3/4 p-2 cursor-pointer">
         Home
       </Link>
-      <div className="text-lg hover:bg-gray w-3/4 p-2 cursor-pointer">
-        Settings
-      </div>
+
       <Link
         to={`/user/${user?.tag}`}
         className="text-lg hover:bg-gray w-3/4 p-2 cursor-pointer"
