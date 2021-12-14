@@ -1,15 +1,16 @@
+import { IComment } from "./IComment";
 import { IPost } from "./IPost";
 import { IUser } from "./IUser";
 
-export interface IComment {
-  id: string;
+export interface IUserPost {
+  title: string;
   content: string;
   author: IUser;
-  usersLiked: IUser[];
+  likedPost: IPost[];
   _count: {
-    usersLiked: number;
+    likedPost: number;
   };
-  post?: IPost;
   comments?: IComment[];
+  id?: string;
   createdAt: string;
 }

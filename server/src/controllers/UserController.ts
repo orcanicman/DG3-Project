@@ -27,8 +27,33 @@ class UserController {
           name: true,
           tag: true,
           profile: true,
-          posts: true,
-          comments: true,
+          posts: {
+            select: {
+              authorId: true,
+              comments: true,
+              id: true,
+              title: true,
+              _count: { select: { usersLiked: true } },
+              content: true,
+              createdAt: true,
+              usersLiked: true,
+              author: { select: { id: true, name: true, tag: true } },
+            },
+          },
+          comments: {
+            select: {
+              authorId: true,
+              id: true,
+              _count: { select: { usersLiked: true } },
+              content: true,
+              createdAt: true,
+              usersLiked: true,
+              post: true,
+              author: { select: { id: true, name: true, tag: true } },
+            },
+          },
+          likedPost: true,
+          _count: { select: { likedPost: true } },
         },
       });
       response.status(200).json(user);
@@ -41,7 +66,13 @@ class UserController {
   static async getAll(request: Request, response: Response) {
     try {
       const allUsers = await ownPrisma.user.findMany({
-        select: { id: true, name: true, tag: true },
+        select: {
+          id: true,
+          name: true,
+          tag: true,
+          likedPost: true,
+          _count: { select: { likedPost: true } },
+        },
       });
       response.status(200).json(allUsers);
     } catch (error) {

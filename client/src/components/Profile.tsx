@@ -1,15 +1,34 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import bannerImg from "../Images/banner.jpg";
 import profilePicture from "../Images/default.jpg";
 import { Link } from "react-router-dom";
-import { Posts } from "../components/Posts";
+import { apiAxios } from "../App";
+import { IPost } from "../types/IPost";
+import { Post } from "./Post";
+import { Comment } from "./Comment";
+import { IComment } from "../types/IComment";
 
 interface ProfileProps {}
 
 export const Profile: React.FC<ProfileProps> = () => {
+  const [post, setPosts] = useState<IPost[] | null>(null);
+  const [comments, setComments] = useState<IComment[] | null>(null);
+  const [isPost, setIsPost] = useState(true);
   const { state, dispatch } = useContext(UserContext);
   const user = state.user;
+
+  const getUserPost = async () => {
+    try {
+      const userPost = await apiAxios.get(`user/${user?.tag}`);
+      setPosts(userPost.data.posts);
+      setComments(userPost.data.comments);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getUserPost();
+  }, []);
 
   return (
     <div className="flex flex-col w-full bg-gray rounded">
@@ -35,17 +54,27 @@ export const Profile: React.FC<ProfileProps> = () => {
           <div className=" flex py-4">Bio</div>
         </div>
         <div className="flex row">
-          <button className="bg-gray hover:bg-lightGray text-black font-bold px-2 py-2  border border-black rounded w-1/2 ">
-            Likes
-          </button>
-          <button className="bg-gray hover:bg-lightGray text-black font-bold px-2 py-2  border border-black rounded w-1/2">
+          <button
+            className="bg-gray hover:bg-lightGray text-black font-bold px-2 py-2  border border-black rounded w-1/2 "
+            onClick={() => setIsPost(true)}
+          >
             Posts
+          </button>
+          <button
+            className="bg-gray hover:bg-lightGray text-black font-bold px-2 py-2  border border-black rounded w-1/2"
+            onClick={() => setIsPost(false)}
+          >
+            Comments
           </button>
         </div>
       </div>
       <div className="flex flex-col w-full">
         <div className="flex flex-grow flex-col bg-white min-h-screen w-full">
-          <Posts />
+          <div className="flex flex-col w-full">
+            {isPost
+              ? post?.map((e, i) => <Post key={i} post={e} />)
+              : comments?.map((e, i) => <Comment key={i} comment={e} />)}
+          </div>
         </div>
       </div>
     </div>
