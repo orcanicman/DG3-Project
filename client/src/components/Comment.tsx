@@ -4,13 +4,14 @@ import { UserContext } from "../context/UserContext";
 import defaultImg from "../Images/default.jpg";
 import { IComment } from "../types/IComment";
 import { IPost } from "../types/IPost";
+import { IUserPost } from "../types/IUserPost";
 
 interface CommentProps {
   comment: IComment;
-  post: IPost;
+  post?: IPost | IUserPost;
 }
 
-export const Comment: React.FC<CommentProps> = ({ comment, post }) => {
+export const Comment: React.FC<CommentProps> = ({ comment }) => {
   const [likes, setLikes] = useState(comment.usersLiked.length);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -20,7 +21,7 @@ export const Comment: React.FC<CommentProps> = ({ comment, post }) => {
   const toggleLike = async () => {
     try {
       const res = await JWTAxios.put(
-        `/post/${post.id}/${comment.id}/toggleLike`
+        `/post/${comment.post?.id}/${comment.id}/toggleLike`
       );
       if (res.status === 200) {
         res.data.message === "you liked this comment"
